@@ -1,0 +1,10 @@
+@media print {
+    @page { margin: 15mm; }
+    body { color: #000; background: #fff; }
+    nav, footer, .no-print { display: none !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; }
+    img { break-inside: avoid; }
+    h1 { page-break-after: avoid; }
+    h2, h3 { page-break-after: avoid; page-break-inside: avoid; }
+    .card { border: 1pt solid #000; }
+}

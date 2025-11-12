@@ -1,0 +1,22 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+---
+<BaseLayout>
+    <header class="container">
+        <h1>RDS Hats</h1>
+        <p class="lede">
+            <strong>RDS Hats is an open repository of hatting knowledge.</strong><br />
+            We collect methods, manuals, and experiments so every maker can learn, build, and contribute.
+        </p>
+    </header>
+
+    <main id="main" class="container">
+        <slot />
+    </main>
+
+    <footer class="container">
+        <p class="muted">
+            © {new Date().getFullYear()} RDS Hats • Content CC BY-SA 4.0 • Code MIT
+        </p>
+    </footer>
+</BaseLayout>

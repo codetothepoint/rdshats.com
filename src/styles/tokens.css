@@ -1,0 +1,42 @@
+:root {
+
+    /* colors */
+    --bg: #ffffff;
+    --fg: #111111;
+    --muted: #555555;
+    --accent: #8a6b00; /* gold-ish */
+    --link: #0b3d91;
+    --link-visited: #5a2e91;
+
+    /* spacing & type */
+    --radius: 8px;
+    --space-1: .25rem;
+    --space-2: .5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    --font-serif: "Source Serif Pro", Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    /* line length & rhythm */
+    --maxw: 72ch;
+    --lh: 1.6;
+}
+
+:root[data-contrast="high"] {
+    --muted: #333;
+    --link: #06306d;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0b0b0c;
+        --fg: #f3f4f6;
+        --muted: #c7c7c7;
+        --accent: #d0a200;
+        --link: #9bbcff;
+        --link-visited: #c7a6ff;
+    }
+}

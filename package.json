@@ -10,5 +10,25 @@
   },
   "dependencies": {
     "astro": "^5.15.5"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^4.3.10",
+    "autoprefixer": "^10.4.22",
+    "cssnano": "^7.1.2",
+    "flexsearch": "^0.8.212",
+    "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
+    "postcss-nesting": "^13.0.2"
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-import": {},
+      "postcss-nesting": {},
+      "autoprefixer": {},
+      "cssnano": {
+        "preset": "default",
+        "disable": "${process.env.NODE_ENV !== 'production'}"
+      }
+    }
   }
 }

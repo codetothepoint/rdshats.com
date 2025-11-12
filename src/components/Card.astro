@@ -1,0 +1,27 @@
+---
+const { href, title, description, status, tags = [] } = Astro.props;
+---
+<article class="card">
+    <header class="card-head">
+        <h3><a href={href}>{title}</a></h3>
+        <span class={`status status--${status}`}>{status}</span>
+    </header>
+    {description && <p class="muted">{description}</p>}
+    {tags.length > 0 && (
+        <ul class="tags">
+            {tags.map(t => <li>{t}</li>)}
+        </ul>
+    )}
+</article>
+
+<style>
+    .card { display:block; }
+    .card-head { display:flex; align-items:baseline; gap:.5rem; }
+    .status { font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; }
+    .status--in-progress { color: var(--accent); }
+    .status--draft { color: var(--muted); }
+    .tags { display:flex; gap:.5rem; padding:0; margin:.5rem 0 0; list-style:none; }
+    .tags li { border:1px solid color-mix(in oklab, var(--fg) 20%, transparent);
+        border-radius: var(--radius); padding:.1rem .4rem; font-size:.8rem; }
+    .muted { color: var(--muted); }
+</style>

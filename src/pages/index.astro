@@ -1,11 +1,80 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import Card from '../components/Card.astro';
+import { metaData } from '../utils/head-utils';
+import BaseDisplayLayout from "../layouts/BaseDisplayLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = await getCollection('projects');
+// Simple sort: published first, then updated desc (adjust as you like)
+const featured = projects
+    .filter(p => p.data.status !== 'draft')
+    .sort((a,b) => (b.data.updated ?? '').localeCompare(a.data.updated ?? ''))
+    .slice(0, 6);
+
+const releases = await getCollection('releases');
+const latestReleases = releases
+    .sort((a,b) => (b.data.updated ?? '').localeCompare(a.data.updated ?? ''))
+    .slice(0, 3);
+
+const m = metaData({
+    title: 'RDS Hats — An Open Hatting Repository',
+    description: 'Open-source hatting knowledge: methods, manuals, experiments, and more.',
+    url: 'https://www.rdshats.com/',
+    type: 'website',
+    locale: 'en-us'
+});
 ---
+<BaseDisplayLayout>
 
-<Layout>
-	<Welcome />
-</Layout>
+    <section aria-labelledby="proj">
+        <h2 id="proj">Featured projects</h2>
+        <div class="grid">
+            {featured.map(p => (
+                <Card
+                    href={`/projects/${p.slug}`}
+                    title={p.data.title}
+                    description={p.data.description}
+                    status={p.data.status}
+                    tags={p.data.tags}
+                />
+            ))}
+        </div>
+        <p><a href="/projects">Browse all projects →</a></p>
+    </section>
+
+    <section aria-labelledby="rel">
+        <h2 id="rel">Latest releases</h2>
+        <ul class="list">
+            {latestReleases.map(r => (
+                <li>
+                    <a href={`/releases/${r.slug}`}>{r.data.title}</a>
+                    {r.data.version && <small> v{r.data.version}</small>}
+                    {r.data.updated && <small> • {r.data.updated}</small>}
+                </li>
+            ))}
+        </ul>
+        <p><a href="/releases">All releases →</a></p>
+    </section>
+
+    <section aria-labelledby="contrib">
+        <h2 id="contrib">Contribute</h2>
+        <ul>
+            <li>Start a new project (guide, bibliography, experiment).</li>
+            <li>Improve an existing page via pull request.</li>
+            <li>Share artifacts (SVGs, STLs, PDFs) with a clear license.</li>
+        </ul>
+        <p><a href="/contribute">Read the contribution guide →</a></p>
+    </section>
+
+</BaseDisplayLayout>
+
+<style>
+    .lede { font-size: 1.05rem; max-width: 60ch; }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--space-4);
+        margin-block: var(--space-3);
+    }
+    .list { padding-left: 1rem; }
+</style>
